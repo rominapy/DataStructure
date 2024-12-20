@@ -9,6 +9,7 @@ struct Node{
 
 void print(Node* head);
 void pushFront(int key, Node* &head);
+void pushBack(int key, Node* &head);
 
 int main(){
 
@@ -25,7 +26,13 @@ int main(){
 
 
     //Pushing numbers to the back of the linked list(1,0,-1,-2,...)
-   
+    for(int i=0; i>=-5; i--){
+
+        pushBack(i,head);
+    }
+
+    // printing the keys
+    print(head);
 
 
     return 0;
@@ -48,6 +55,22 @@ void pushFront(int key, Node* &head){
 }
 
 void pushBack(int key, Node* &head){
+  
 
-    
+    Node* newNode = new Node();
+    newNode->key = key;
+    newNode->next = nullptr;
+  // handling empty list
+
+    if(head == nullptr){
+        head = newNode;
+     }
+    else{
+        Node* temp = head;
+        while(temp->next!=nullptr){
+            temp = temp->next;
+        }
+        temp->next= newNode;
+
+    }
 }
