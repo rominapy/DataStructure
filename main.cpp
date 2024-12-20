@@ -26,7 +26,7 @@ int main(){
 
 
     //Pushing numbers to the back of the linked list(1,0,-1,-2,...)
-    for(int i=0; i<=-5; i--){
+    for(int i=0; i>=-5; i--){
 
         pushBack(i,head);
     }
@@ -62,7 +62,7 @@ void pushBack(int key, Node* &head){
     newNode->next = nullptr;
   // handling empty list
 
-    if(head->next == nullptr){
+    if(head == nullptr){
         head = newNode;
      }
     else{
