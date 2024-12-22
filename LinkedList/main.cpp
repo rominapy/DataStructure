@@ -10,6 +10,7 @@ struct Node{
 void print(Node* head);
 void pushFront(int key, Node* &head);
 void pushBack(int key, Node* &head);
+void popFront(Node*& head);
 
 int main(){
 
@@ -22,6 +23,7 @@ int main(){
         pushFront(i,head);
     }
     // printing the keys
+    cout<< "Printing the numbers that we pushed to the fronte: \n";
     print(head);
 
 
@@ -32,8 +34,19 @@ int main(){
     }
 
     // printing the keys
+    cout<< "Printing the numbers that we pushed to the back: \n";
     print(head);
 
+    //calling the pop front function to delete 10 from the front
+    popFront(head);
+
+    // 
+    cout <<"Removing the first element from the front: \n";
+    print(head);
+
+    cout <<"Adding back the first element to the front: \n";
+    pushFront(10,head);
+    print(head);
 
     return 0;
 }
@@ -73,4 +86,19 @@ void pushBack(int key, Node* &head){
         temp->next= newNode;
 
     }
+}
+
+void popFront(Node*& head){
+    if(head->next== nullptr){
+        //in order to delr
+      head = nullptr;  
+
+    }
+    else{
+        Node* temp = head ;
+        head = temp->next;
+        delete temp;
+
+    }
+
 }
