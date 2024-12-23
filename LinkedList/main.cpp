@@ -11,6 +11,7 @@ void print(Node* head);
 void pushFront(int key, Node* &head);
 void pushBack(int key, Node* &head);
 void popFront(Node*& head);
+void  popBack(Node*& head);
 
 int main(){
 
@@ -40,12 +41,17 @@ int main(){
     //calling the pop front function to delete 10 from the front
     popFront(head);
 
-    // 
+    
     cout <<"Removing the first element from the front: \n";
     print(head);
 
     cout <<"Adding back the first element to the front: \n";
     pushFront(10,head);
+    print(head);
+
+    // calling popBac function:
+    cout<< " Removing from the back of the list: \n";
+    popBack(head);
     print(head);
 
     return 0;
@@ -89,16 +95,36 @@ void pushBack(int key, Node* &head){
 }
 
 void popFront(Node*& head){
-    if(head->next== nullptr){
-        //in order to delr
-      head = nullptr;  
+   
+    if(head== nullptr){
+        // handling empty list
+       return;
 
     }
     else{
         Node* temp = head ;
         head = temp->next;
         delete temp;
-
     }
 
+}
+
+void  popBack(Node*& head){
+// Check if list is empty then return NULL.
+    if (head== nullptr){
+        return;
+    }
+    if (head->next == nullptr) {
+        delete head;
+        return;
+    }
+    Node* temp = head;
+    while(temp->next->next != nullptr){
+    temp = temp->next;
+    }
+    // Delete the last node
+    delete temp->next->next;
+
+    // Change next of second last
+    temp->next = nullptr;
 }
