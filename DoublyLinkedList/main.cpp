@@ -15,6 +15,10 @@ void addFront(Dnode* &header, const int key);
 void addback(Dnode* &trailer, const int key);
 // Print the list forward starting from the header
 void printForward(Dnode* header);
+//Print the list Backward starting from the trailer
+void  PrintBackward(Dnode* trailer);
+
+
 
 int main() {
     // Creating header and trailer pointers
@@ -43,6 +47,9 @@ int main() {
     // Print the list forward again
     cout << "List after adding to the back:" << endl;
     printForward(header);
+    //Print the list backward:
+    cout << "Printing backward: \n";
+    PrintBackward(trailer);
 
     return 0;
 }
@@ -87,4 +94,16 @@ void printForward(Dnode* header) {
     }
 
     cout << endl; // Print a new line at the end
+}
+
+void  PrintBackward(Dnode* trailer){
+    Dnode* temp = trailer;
+
+    while(temp->prev->prev != nullptr){
+        cout << temp->prev->key << " <--> ";
+        temp = temp->prev;
+    }
+    cout << endl;
+    
+
 }
