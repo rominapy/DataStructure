@@ -1,53 +1,70 @@
 #include <iostream>
 using namespace std;
 
+// Structure representing a doubly linked list node
 struct Dnode {
-    Dnode* prev;
-    Dnode* next;
-    int key;
+    Dnode* prev; // Pointer to the previous node
+    Dnode* next; // Pointer to the next node
+    int key;     // Data stored in the node
 };
 
-// Helper function to insert a new node before the reference node
+// Helper function to insert a new node before a reference node
+// Parameters:
+// - referenceNode: The node before which the new node will be inserted
+// - newValue: The value to store in the new node
 void insertNode(Dnode* referenceNode, const int newValue);
-// Add a new node to the front of the list
+
+// Adds a new node to the front of the list
+// Parameters:
+// - header: Reference to the pointer to the header node
+// - key: Value to store in the new node
 void addFront(Dnode* &header, const int key);
-// Add a new node to the back of the list
+
+// Adds a new node to the back of the list
+// Parameters:
+// - trailer: Reference to the pointer to the trailer node
+// - key: Value to store in the new node
 void addback(Dnode* &trailer, const int key);
-// Print the list forward starting from the header
+
+// Prints the list in forward order starting from the header node
+// Parameters:
+// - header: Pointer to the header node
 void printForward(Dnode* header);
-//Print the list Backward starting from the trailer
-void  PrintBackward(Dnode* trailer);
 
-
+// Prints the list in reverse order starting from the trailer node
+// Parameters:
+// - trailer: Pointer to the trailer node
+void PrintBackward(Dnode* trailer);
 
 int main() {
-    // Creating header and trailer pointers
+    // Creating header and trailer sentinel nodes
     Dnode* header = new Dnode();
     Dnode* trailer = new Dnode();
 
-    // Initialize header and trailer
-    header->key = trailer->key = 9999; // Sentinel values
-    header->next = trailer;
-    trailer->prev = header;
+    // Initialize header and trailer with sentinel values
+    header->key = trailer->key = 9999; // Sentinel value indicating non-data nodes
+    header->next = trailer;           // Link header to trailer
+    trailer->prev = header;           // Link trailer to header
 
-    // Add nodes to the front of the list
+    // Add nodes to the front of the list (0 to 5)
     for (int i = 0; i <= 5; i++) {
         addFront(header, i);
     }
 
-    // Print the list forward
+    // Print the list in forward order
     cout << "List after adding to the front:" << endl;
     printForward(header);
 
-    // Add nodes to the back of the list
+    // Add nodes to the back of the list (-1 to -5)
     for (int i = -1; i >= -5; i--) {
         addback(trailer, i);
     }
 
-    // Print the list forward again
+    // Print the list in forward order again
     cout << "List after adding to the back:" << endl;
     printForward(header);
-    //Print the list backward:
+
+    // Print the list in reverse order
     cout << "Printing backward: \n";
     PrintBackward(trailer);
 
@@ -55,55 +72,61 @@ int main() {
 }
 
 void insertNode(Dnode* referenceNode, const int newValue) {
-    // Step 1: Create a new node
+    // Create a new node with the given value
     Dnode* newNode = new Dnode();
     newNode->key = newValue;
 
-    // Step 2: Link the new node into the list
-    newNode->next = referenceNode;
-    newNode->prev = referenceNode->prev;
-    referenceNode->prev->next = newNode;
-    referenceNode->prev = newNode;
+    // Link the new node into the list
+    newNode->next = referenceNode;               // Point newNode's next to referenceNode
+    newNode->prev = referenceNode->prev;         // Point newNode's prev to referenceNode's prev
+    referenceNode->prev->next = newNode;         // Update previous node's next to newNode
+    referenceNode->prev = newNode;               // Update referenceNode's prev to newNode
 }
 
 void addFront(Dnode* &header, const int key) {
-    // Insert a node after the header (before the first valid node)
+    // Insert a new node immediately after the header (before the first valid node)
     insertNode(header->next, key);
 }
 
 void addback(Dnode* &trailer, const int key) {
-    // Insert a node before the trailer
+    // Insert a new node immediately before the trailer
     insertNode(trailer, key);
 }
 
 void printForward(Dnode* header) {
-    // Start from the first valid node (header->next)
+    // Start traversal from the first valid node (header->next)
     Dnode* temp = header->next;
 
-    // Traverse until the trailer node (temp->key == 9999)
+    // Traverse until the trailer node is reached
     while (temp != nullptr && temp->key != 9999) {
-        cout << temp->key;
+        cout << temp->key; // Print the current node's key
 
-        // Add separator if there is a next valid node
+        // Print separator if the next node is valid and not the trailer
         if (temp->next != nullptr && temp->next->key != 9999) {
             cout << " <--> ";
         }
 
-        // Move to the next node
-        temp = temp->next;
+        temp = temp->next; // Move to the next node
     }
 
-    cout << endl; // Print a new line at the end
+    cout << endl; // Print a newline at the end
 }
 
-void  PrintBackward(Dnode* trailer){
+void PrintBackward(Dnode* trailer) {
+    // Start traversal from the trailer node
     Dnode* temp = trailer;
 
-    while(temp->prev->prev != nullptr){
-        cout << temp->prev->key << " <--> ";
-        temp = temp->prev;
-    }
-    cout << endl;
-    
+    // Traverse until the header node is reached
+    while (temp->prev->prev != nullptr) {
+        cout << temp->prev->key; // Print the current node's key
 
+        // Print separator if more nodes exist in reverse
+        if (temp->prev->prev != nullptr) {
+            cout << " <--> ";
+        }
+
+        temp = temp->prev; // Move to the previous node
+    }
+
+    cout << endl; // Print a newline at the end
 }
