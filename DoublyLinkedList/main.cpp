@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-// Structure representing a doubly linked list node
+// Structure representing a doubly linked list node.
 struct Dnode {
     Dnode* prev; // Pointer to the previous node
     Dnode* next; // Pointer to the next node
