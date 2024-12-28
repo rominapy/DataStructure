@@ -128,5 +128,5 @@ void PrintBackward(Dnode* trailer) {
         temp = temp->prev; // Move to the previous node
     }
 
-    cout << endl; // Print a newline at the end
+    cout << endl<< endl; // Print a newline at the end
 }
