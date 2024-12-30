@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 using namespace std;
+
 
 // Class definition for Queue
 class Queue {
@@ -22,6 +24,11 @@ public:
 
     // Displays all elements in the queue
     void display();
+
+
+    // Checks if the queue is empty
+    bool isEmpty();
+
 
 private:
     vector<int> arr; // Internal storage for the queue
@@ -81,6 +88,13 @@ void Queue::display() {
     }
     cout << endl;                        // Print a newline at the end
 }
+bool Queue::isEmpty(){
+    return size == 0;
+}
+
+//reversing the queue using stack
+void reverse(Queue *Q);
+
 
 int main() {
     // Create a queue with a capacity of 4
@@ -95,8 +109,34 @@ int main() {
     q->dequeue();           // Remove the front element
     q->enqueue(0);          // Add element 0 to the queue
 
-    q->display();           // Display the current elements in the queue
+   
+    cout << "Original Queue: ";
+    q->display();           // Display the queue
+
+    reverse(q);             // Reverse the queue using a stack
+
+    cout << "Reversed Queue: ";
+    q->display();           // Display the reversed queue
 
     delete q;               // Delete the dynamically allocated queue object
     return 0;               // Exit the program
+}
+
+
+void reverse(Queue *Q) {
+    stack<int> s;
+
+    // Run while Q is not empty
+    while (!Q->isEmpty()) {
+        // Dequeue an item from Q and push the dequeued item to stack s
+        s.push(Q->getFront());
+        Q->dequeue();
+    }
+
+    // Run while stack s is not empty
+    while (!s.empty()) {
+        // Pop an item from stack s and enqueue the popped item to Q
+        Q->enqueue(s.top());
+        s.pop();
+    }
 }
