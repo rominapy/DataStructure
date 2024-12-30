@@ -70,7 +70,7 @@ void Queue::dequeue() {
     for (int i = 1; i < size; i++) {
         arr[i - 1] = arr[i];
     }
-    size--;                 // Decrement the size of the queue
+    size--;                 //Decrement the size of the queue.
 }
 
 // Function to get the front element of the queue
